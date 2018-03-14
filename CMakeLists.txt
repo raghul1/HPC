@@ -4,3 +4,7 @@ project(Case1)
 set(CMAKE_CXX_STANDARD 11)
 
 add_executable(Case1 main.cpp)
+
+find_package(BLAS)
+target_link_libraries(Case1 ${BLAS_LIBRARIES})
+
