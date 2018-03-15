@@ -102,12 +102,46 @@ int main() {
 
             Coord[j + i*nelem_y] = x[i];                // first column : x
             Coord[(j + i*nelem_y) + nnode] = Y[j];      // second column : y
-
-            cout << x[i] << "    " <<  Coord[(j + i*nelem_y) + nnode] << endl;
         }
     }
 
+    // ----- Calculation of topology matrix NodeTopo -----------
+
+    int NodeTopo[(nelem_x+1) * (nelem_y+1)];
+    // since matrices are stored as column major, assignment of node numbers is simple
+    for (int i = 0; i < nelem_x+1; i++){
+        for (int j = 0; j < nelem_y+1; j++){
+
+            NodeTopo[j + (nelem_y+1)*i] = j + (nelem_y+1)*i;
+
+        }
+    }
+
+    // ----- Calculation of topology matrix ElemNode -----------
+
+    // initialise array for topology matrix- 5 columns: 1x element number, 4x corners for a quadrilateral element
+    int ElemNode[nelem*5];
+    int elemnr = 0;
+
+    for (int colnr = 0; colnr < nelem_x; colnr++){
+        for (int rownr = 0; rownr < nelem_y; rownr++){
+
+            ElemNode[elemnr] = elemnr;                                                                      // column 0: element number
+            ElemNode[elemnr + (nelem_x * nelem_y) ] = NodeTopo[rownr + colnr * (nelem_y+1)];                 // column 1: top left - NodeTopo(row, column)
+            ElemNode[elemnr + (nelem_x * nelem_y) * 2] = NodeTopo[rownr + colnr * (nelem_y+1) + nelem_y+1];             // column 2: top right - NodeTopo(row+1, column)
+            ElemNode[elemnr + (nelem_x * nelem_y) * 3] = NodeTopo[rownr + colnr * (nelem_y+1) + nelem_y+1 + 1];           // column 3: bottom right - NodeTopo(row+1, column+1)
+            ElemNode[elemnr + (nelem_x * nelem_y) * 4] = NodeTopo[rownr + colnr * (nelem_y+1) + 1];           // column 4: bottom left - NodeTopo(row+1, column)
+            elemnr++;
+
+        }
+
+    }
     
+
+
+
+
+
 
     return 0;
 }
