@@ -3,7 +3,7 @@
 #include "cblas.h"
 using namespace std;
 
-// void zeros(int, float*);
+void zeros(int, int*);
 
 int main() {
 
@@ -39,9 +39,13 @@ int main() {
     const int nelem_x = 10;   // Number of elements in the x-direction
 
     int nnode_elem = 4 ;                // number of nodes in each element
-    //float nNodeDof[4] = {1, 1, 1, 1} ;    // number of DoF per node (1 = Temperature only)
+    int neDof = 0;
+    int nNodeDof[4] = {1, 1, 1, 1} ;    // number of DoF per node (1 = Temperature only)
     // total number of DoF given by the sum of the nodal DoF
-    //int neDof = cblas_sasum(4, nNodeDof, 1);    // CBLAS routine to sum elements of array nNodeDof
+    // int neDof = cblas_sasum(4, nNodeDof, 1);    // CBLAS routine to sum elements of array nNodeDof
+    for (int i = 0; i < 4; i++){
+        neDof += nNodeDof[i];
+    }
 
     //----- Element and node numbers -----------------
     int nelem = nelem_x * nelem_y;              // Total number of elements
@@ -88,10 +92,10 @@ int main() {
     for (int colnr = 0; colnr < nelem_x +1; colnr++){
         for (int rownr = 0; rownr < nelem_y + 1; rownr++){
 
-            Y[colnr * nelem_x + rownr] = -h[colnr] / 2 + h[colnr] / nelem_y * rownr ;
-
+            Y[colnr * (nelem_y+1) + rownr] = (-h[colnr] / 2) + (h[colnr] / nelem_y) * rownr ;
         }
     }
+
 
     // create Coordinate matrix with two rows (x,y) for each node.
     float Coord[nnode * 2];
@@ -104,6 +108,8 @@ int main() {
             Coord[(j + i*nelem_y) + nnode] = Y[j];      // second column : y
         }
     }
+
+
 
     // ----- Calculation of topology matrix NodeTopo -----------
 
@@ -122,6 +128,9 @@ int main() {
     // initialise array for topology matrix- 5 columns: 1x element number, 4x corners for a quadrilateral element
     int ElemNode[nelem*5];
     int elemnr = 0;
+    float ElemX[nelem * nnode_elem];
+    float ElemY[nelem * nnode_elem];
+
 
     for (int colnr = 0; colnr < nelem_x; colnr++){
         for (int rownr = 0; rownr < nelem_y; rownr++){
@@ -131,29 +140,72 @@ int main() {
             ElemNode[elemnr + (nelem_x * nelem_y) * 2] = NodeTopo[rownr + colnr * (nelem_y+1) + nelem_y+1];             // column 2: top right - NodeTopo(row+1, column)
             ElemNode[elemnr + (nelem_x * nelem_y) * 3] = NodeTopo[rownr + colnr * (nelem_y+1) + nelem_y+1 + 1];           // column 3: bottom right - NodeTopo(row+1, column+1)
             ElemNode[elemnr + (nelem_x * nelem_y) * 4] = NodeTopo[rownr + colnr * (nelem_y+1) + 1];           // column 4: bottom left - NodeTopo(row+1, column)
+
+            // ----- Create coordinate matrix in node element order -----------
+
+            ElemX[elemnr] = x[colnr];                                   // Node 1: x
+            ElemX[elemnr + (nelem_x * nelem_y)] = x[colnr+1];         // Node 2: x+1
+            ElemX[elemnr + (nelem_x * nelem_y) * 2] = x[colnr+1];         // Node 3: x+1
+            ElemX[elemnr + (nelem_x * nelem_y) * 3] = x[colnr];           // Node 4: x
+
+            ElemY[elemnr] = Y[rownr + colnr * (nelem_y+1)];           // Node 1: y
+            ElemY[elemnr + (nelem_x * nelem_y)] = Y[rownr + colnr * (nelem_y+1) + nelem_y];     // Node 2: y
+            ElemY[elemnr + (nelem_x * nelem_y) * 2] = Y[rownr + colnr * (nelem_y+1) + nelem_y+1 + 1];         // Node 3: y+1
+            ElemY[elemnr + (nelem_x * nelem_y) * 3] = Y[rownr + colnr * (nelem_y+1) + 1];           // Node 4: y+1
+
             elemnr++;
+
+        }
+    }
+
+    // ----- Generate global DoF numbers -----------------
+    // global DoF per node
+    // TODO : why 2 tho?
+    int globDof[nnode * 2];
+    zeros(nnode * 2, &(globDof[0]));
+    int nNode = 0;
+
+    for (int i = 0; i < nelem; i++){
+        for(int k = 0; k < 4; k++){
+
+            nNode = ElemNode[k*nelem+i];
+            // if the already existing ndof of the present node is less than the present elements ndof then replace the ndof for that node
+            if (globDof[nNode] < nNodeDof[k]) {
+                globDof[nNode] = nNodeDof[k];
+            }
+        }
+    }
+
+    // counting the global DoFs and inserting in globDof
+    int nDof = 0;
+    int eDof;
+
+    for (int i = 0; i < nnode; i++){
+
+        eDof = globDof[i]; // sub eDof into below for loop
+        for (int k = 0; k < eDof; k++){
+
+            // stored as column major -> nnode*k for each DoF in the element
+            globDof[i + nnode] = nDof;
+            nDof++;
 
         }
 
     }
-    
-
-
+   
 
 
 
 
     return 0;
 }
-/*
-void zeros(int n, float* A){
+
+void zeros(int n, int* A){
 
 
     for (int i = 0; i < n ; i++){
 
-        A[i] = 3;
-        cout << A[i];
+        A[i] = 0;
 
     }
 }
- */
