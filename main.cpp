@@ -1,9 +1,12 @@
 #include <iostream>
 #include <cmath>
 #include "cblas.h"
+#include <iomanip>
 using namespace std;
 
-void zeros(int, int*);
+void zeros_int(int, int*);
+void zeros_double(int, double*);
+
 
 int main() {
 
@@ -149,7 +152,7 @@ int main() {
             ElemX[elemnr + (nelem_x * nelem_y) * 3] = x[colnr];           // Node 4: x
 
             ElemY[elemnr] = Y[rownr + colnr * (nelem_y+1)];           // Node 1: y
-            ElemY[elemnr + (nelem_x * nelem_y)] = Y[rownr + colnr * (nelem_y+1) + nelem_y];     // Node 2: y
+            ElemY[elemnr + (nelem_x * nelem_y)] = Y[rownr + colnr * (nelem_y+1) + nelem_y+1];     // Node 2: y
             ElemY[elemnr + (nelem_x * nelem_y) * 2] = Y[rownr + colnr * (nelem_y+1) + nelem_y+1 + 1];         // Node 3: y+1
             ElemY[elemnr + (nelem_x * nelem_y) * 3] = Y[rownr + colnr * (nelem_y+1) + 1];           // Node 4: y+1
 
@@ -158,11 +161,11 @@ int main() {
         }
     }
 
+
     // ----- Generate global DoF numbers -----------------
     // global DoF per node
-    // TODO : why 2 tho?
     int globDof[nnode * 2];
-    zeros(nnode * 2, &(globDof[0]));
+    zeros_int(nnode * 2, &(globDof[0]));
     int nNode = 0;
 
     for (int i = 0; i < nelem; i++){
@@ -192,7 +195,129 @@ int main() {
         }
 
     }
-   
+
+    // ----- Assembly of global stiffness matrix K ---------------
+
+    double GP[2] = {-1 / sqrt(3.0), 1 / sqrt(3.0)};         // Gauss points
+    int W[2] = {1, 1};                                      // Weights
+
+    double D[4] = {kx, kxy, kxy, ky};                        // conductivity matrix D stored as column major
+
+    double K[nnode * nnode];                                 // global stiffness matrix K
+    zeros_double(nnode * nnode, &(K[0]));                    // due to iterative addition, K must be zeroed to prevent unpredictable behaviour
+    int eNodes[nnode_elem];                                 // element node numbers
+    double eCoord[nnode_elem*2];
+    int gDof[nnode_elem];                                   // local element DoFs
+    double Ke[nnode_elem * nnode_elem];                      // local element stiffness matrix
+    zeros_double(nnode_elem*nnode_elem, &(Ke[0]));          // initialise Ke with zeros due to iterative addition
+    double N[nnode_elem];                                   // shape function matrix
+    double GN[nnode_elem * gaussorder];                     // derivative (gradient) of shape functions matrix
+    double J[gaussorder * gaussorder];                      // Jacobian
+    double detJ;                                            // Jacobian determinate
+    double invJ[gaussorder * gaussorder];                   // Inverse Jacobian
+    double B[nnode_elem * gaussorder];                      // Strain interpolation matrix
+    double eta;
+    double xi;
+    double BtD[8];                                          // B' * D
+    double alpha;                                           //  coefficient th * DetJ * W[i] * W[j]
+
+
+    // ----- Data for element i ---------------
+    for (int i = 0; i < nelem; i++){
+
+        // ----- Data for each node j in element i ---------------
+        for (int j = 0; j < nnode_elem; j++){
+
+            eNodes[j] = ElemNode[nelem * (j+1) + i];                    // Node numbers
+            eCoord[j] = ElemX[j*nelem+i];                    // Ele
+            eCoord[nnode_elem+j] = ElemY[j*nelem+i];
+            //cout << Coord[eNodes[j] + nelem]<< endl;//eCoord[j]<< " " << eCoord[nnode_elem+j] << endl;
+            // TODO: this probably works
+            gDof[j] = globDof[eNodes[j] + nNodeDof[j] * nnode];         // Dof per node
+
+        }
+
+        // ----- Local stiffness matrix, Ke, is found ---------------
+        // ----- Element stiffness matrix, Ke, by Gauss integration -
+
+        for (int f = 0; f < gaussorder; f++){
+            for (int g = 0; g < gaussorder; g++){
+
+                eta = GP[f];
+                xi = GP[g];
+
+                // loss of generality - below assignment specific to quadrilateral elements
+                // manual assignment of N
+                N[0] = 0.25 * (1 - xi) * (1 - eta);
+                N[1] = 0.25 * (1 + xi) * (1 - eta);
+                N[2] = 0.25 * (1 + xi) * (1 + eta);
+                N[3] = 0.25 * (1 - xi) * (1 + eta);
+
+                // manual assignment of GN
+                GN[0] = -(1 - eta) * 0.25; GN[1] = -(1 - xi) * 0.25;
+                GN[2] =  (1 - eta) * 0.25; GN[3] = -(1 + xi) * 0.25;
+                GN[4] =  (1 + eta) * 0.25; GN[5] =  (1 + xi) * 0.25;
+                GN[6] = -(1 + eta) * 0.25; GN[7] =  (1 - xi) * 0.25;
+
+                // CBLAS matrix multiplication to obtain J
+                cblas_dgemm(CblasColMajor, CblasNoTrans, CblasNoTrans, 2, 2, 4, 1.0, GN, 2, eCoord, 4, 0.0, J, 2);
+
+                // manual calculation of determinate TODO: replace with lapack routine
+                detJ = J[0] * J[3] - J[1] * J[2];
+
+                // manual calculation of inverse TODO: replace with lapack routine
+                invJ[0] = 1/detJ * J[3];
+                invJ[1] = -1/detJ * J[2];
+                invJ[2] = -1/detJ * J[1];
+                invJ[3] = 1/detJ * J[0];
+
+                // invJ . GN = B
+                cblas_dgemm(CblasColMajor, CblasNoTrans, CblasNoTrans, 2, 4, 2, 1.0, invJ, 2, GN, 2, 0.0, B, 2);
+
+                //-------- elemental stiffness matrix: Ke = Ke + B'*D*B*th*DetJ*Wi*Wj ------------
+                // Ke = Ke + np.dot(np.dot(B.T, D), B) * th * DetJ * W[i] * W[j]
+
+                // compute coefficient in front matrix multiplication: Ke = Ke + B'*D*B*k
+                alpha = th * detJ * W[f] * W[g];
+
+                // product inside brackets : B'. D = BtD
+                cblas_dgemm(CblasColMajor, CblasTrans, CblasNoTrans, 4, 2, 2, 1.0, B, 2, D, 2, 0.0, BtD, 4);
+
+                // product outside brackets : k (BtD . B) + 1 * Ke = Ke
+                cblas_dgemm(CblasColMajor, CblasNoTrans, CblasNoTrans, 4, 4, 2, alpha, BtD, 4, B, 2, 1.0, Ke, 4);
+
+
+            }
+        }
+
+        // "inserting" the global element stiffness matrix into the global system stiffness matrix
+        // loop though node DoF and insert into relevant row (f) and column (g)
+        for (int f = 0; f < nnode_elem; f++) {
+            for (int g = 0; g < nnode_elem; g++) {
+
+                K[gDof[f]*nnode + gDof[g]] +=  Ke[f*nnode_elem + g];
+
+            }
+        }
+        zeros_double(nnode_elem*nnode_elem, &(Ke[0]));              // remember to zero Ke after each element iteration
+
+
+
+    }
+
+
+        for (int t=0;t<nnode_elem;t++){
+        for (int s=0;s<nnode_elem;s++){
+            //cout << Ke[s + t*nnode] << "  ";
+        }
+        cout << endl;
+    }
+    for (int t=0;t<nnode;t++){
+        for (int s=0;s<nnode;s++){
+            cout << K[s*nnode + t] << setw(10);
+        }
+        cout << endl;
+    }
 
 
 
@@ -200,12 +325,22 @@ int main() {
     return 0;
 }
 
-void zeros(int n, int* A){
+void zeros_int(int n, int* A){
 
 
     for (int i = 0; i < n ; i++){
 
         A[i] = 0;
+
+    }
+}
+
+void zeros_double(int n, double* A){
+
+
+    for (int i = 0; i < n ; i++){
+
+        A[i] = 0.0;
 
     }
 }
