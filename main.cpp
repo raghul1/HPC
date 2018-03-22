@@ -529,7 +529,60 @@ int main() {
     // ---------------------------
 
 
-    
+
+    // ---------------------------
+    // **  CONSTRUCT SOLUTION  **
+    // ---------------------------
+
+    double rhs[falseE];
+    cblas_dgemv(CblasColMajor, CblasTrans, trueE, falseE, 1.0, K_EF, trueE, T_E, 1, 0.0, rhs, 1);
+
+
+    for (int i = 0; i < falseE; i++) {
+        rhs[i] =  f_F[i] - rhs[i];
+    }
+
+    double T_F[falseE];
+    int* ipiv = new int [falseE];
+    int info=0;
+    /*
+    F77NAME(dgesv)(falseE, 1, K_FF, falseE, ipiv, rhs, falseE, info);        // solve system of linear equations
+    cblas_dcopy(falseE, rhs, 1, T_F, 1);                                     // copy rhs to T_F
+
+
+    for (int i = 0 ; i < falseE ; i++) {
+        T[i + trueE] = T_F[i];
+    }
+
+    double f_E[6];
+    // calculate dot products np.dot(K_EE, T_E) + np.dot(K_EF, T_F). Sum result of first one with second using beta = 1
+    cblas_dgemv(CblasColMajor, CblasNoTrans, trueE, trueE, 1.0, K_EE, trueE, T_E, 1, 0.0, f_E, 1);
+    cblas_dgemv(CblasColMajor, CblasNoTrans, trueE, falseE, 1.0, K_EF, trueE, T_F, 1, 1.0, f_E, 1);
+
+
+    for (int i = 0; i < trueE; i++){
+        f[i] = f_E[i];
+    }
+
+    for (int i = 0; i < falseE; i++){
+        f[i + trueE] = f_F[i];
+    }
+
+
+    for (int i = 0; i < nnode; i++){
+
+        cout << f[i] << endl;
+    }
+
+    */
+
+
+
+    return 0;
+
+
+
+
 
 
 
