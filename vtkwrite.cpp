@@ -4,12 +4,15 @@ using namespace std;
 
 void vtkwrite(int nnode, double* Coord, int nelem, int nnode_elem, int* ElemNode, double* T){
 
-    // ---------------------------
-    // **    VTK FILE WRITE    **
-    // ---------------------------
+    ///@brief write in ASCII to a  .vtk file, which may be used in paraview
+    ///@brief syntax followed using python ASCII output
 
-    // write to ASCII .vtk file, which may be used in paraview
-    // syntax followed using python ASCII output
+    ///@param nnode         total number of nodes
+    ///@param Coord         coordinates (x,y) of each node
+    ///@param nelem         total number of elements
+    ///@param nnode_elem    number of elements per node- for quadrilateral elements this is restricted to 4
+    ///@param ElemNode      5 columns: 1x element number, 4x corners for a quadrilateral element
+    ///@param T             array of temperature values corresponding to nodal temperatures
 
     ofstream vOut("output.vtk", ios::out | ios::trunc);      // output to file, overwrite if already present
 

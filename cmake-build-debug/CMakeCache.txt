@@ -231,6 +231,68 @@ Case1_BINARY_DIR:STATIC=/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/
 //Value Computed by CMake
 Case1_SOURCE_DIR:STATIC=/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1
 
+//Path to a library.
+LAPACK_Accelerate_LIBRARY:FILEPATH=/System/Library/Frameworks/Accelerate.framework
+
+//Path to a library.
+LAPACK_goto2_LIBRARY:FILEPATH=LAPACK_goto2_LIBRARY-NOTFOUND
+
+//Path to a library.
+LAPACK_openblas_LIBRARY:FILEPATH=LAPACK_openblas_LIBRARY-NOTFOUND
+
+//Executable for running MPI programs.
+MPIEXEC:FILEPATH=MPIEXEC-NOTFOUND
+
+//Maximum number of processors available to run MPI applications.
+MPIEXEC_MAX_NUMPROCS:STRING=4
+
+//Flag used by MPI to specify the number of processes for MPIEXEC;
+// the next option will be the number of processes.
+MPIEXEC_NUMPROC_FLAG:STRING=-n
+
+//These flags will come after all flags given to MPIEXEC.
+MPIEXEC_POSTFLAGS:STRING=
+
+//These flags will be directly before the executable that is being
+// run by MPIEXEC.
+MPIEXEC_PREFLAGS:STRING=
+
+//Path to a program.
+MPI_CXX_COMPILER:FILEPATH=MPI_CXX_COMPILER-NOTFOUND
+
+//MPI CXX compilation flags
+MPI_CXX_COMPILE_FLAGS:STRING=
+
+//MPI CXX include path
+MPI_CXX_INCLUDE_PATH:STRING=MPI_HEADER_PATH-NOTFOUND
+
+//MPI CXX libraries to link against
+MPI_CXX_LIBRARIES:STRING=MPI_CXX_LIBRARIES-NOTFOUND
+
+//MPI CXX linking flags
+MPI_CXX_LINK_FLAGS:STRING=
+
+//Path to a program.
+MPI_C_COMPILER:FILEPATH=MPI_C_COMPILER-NOTFOUND
+
+//MPI C compilation flags
+MPI_C_COMPILE_FLAGS:STRING=
+
+//MPI C include path
+MPI_C_INCLUDE_PATH:STRING=MPI_HEADER_PATH-NOTFOUND
+
+//MPI C libraries to link against
+MPI_C_LIBRARIES:STRING=MPI_C_LIBRARIES-NOTFOUND
+
+//MPI C linking flags
+MPI_C_LINK_FLAGS:STRING=
+
+//Extra MPI libraries to link against
+MPI_EXTRA_LIBRARY:STRING=MPI_EXTRA_LIBRARY-NOTFOUND
+
+//MPI library to link against
+MPI_LIBRARY:FILEPATH=MPI_LIBRARY-NOTFOUND
+
 //Path to a program.
 ProcessorCount_cmd_sysctl:FILEPATH=/usr/sbin/sysctl
 
@@ -410,6 +472,54 @@ CMAKE_UNAME:INTERNAL=/usr/bin/uname
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
+//ADVANCED property for variable: LAPACK_Accelerate_LIBRARY
+LAPACK_Accelerate_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: LAPACK_Accelerate_WORKS
+LAPACK_Accelerate_WORKS-ADVANCED:INTERNAL=1
+//Have function cheev_
+LAPACK_Accelerate_WORKS:INTERNAL=1
+//ADVANCED property for variable: LAPACK_goto2_LIBRARY
+LAPACK_goto2_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: LAPACK_openblas_LIBRARY
+LAPACK_openblas_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MPIEXEC
+MPIEXEC-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MPIEXEC_MAX_NUMPROCS
+MPIEXEC_MAX_NUMPROCS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MPIEXEC_NUMPROC_FLAG
+MPIEXEC_NUMPROC_FLAG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MPIEXEC_POSTFLAGS
+MPIEXEC_POSTFLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MPIEXEC_PREFLAGS
+MPIEXEC_PREFLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MPI_CXX_COMPILER
+MPI_CXX_COMPILER-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MPI_CXX_COMPILE_FLAGS
+MPI_CXX_COMPILE_FLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MPI_CXX_INCLUDE_PATH
+MPI_CXX_INCLUDE_PATH-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MPI_CXX_LIBRARIES
+MPI_CXX_LIBRARIES-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MPI_CXX_LINK_FLAGS
+MPI_CXX_LINK_FLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MPI_C_COMPILER
+MPI_C_COMPILER-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MPI_C_COMPILE_FLAGS
+MPI_C_COMPILE_FLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MPI_C_INCLUDE_PATH
+MPI_C_INCLUDE_PATH-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MPI_C_LIBRARIES
+MPI_C_LIBRARIES-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MPI_C_LINK_FLAGS
+MPI_C_LINK_FLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MPI_EXTRA_LIBRARY
+MPI_EXTRA_LIBRARY-ADVANCED:INTERNAL=1
+//Scratch variable for MPI header detection
+MPI_HEADER_PATH:INTERNAL=MPI_HEADER_PATH-NOTFOUND
+//Scratch variable for MPI lib detection
+MPI_LIB:INTERNAL=MPI_LIB-NOTFOUND
+//ADVANCED property for variable: MPI_LIBRARY
+MPI_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ProcessorCount_cmd_sysctl
 ProcessorCount_cmd_sysctl-ADVANCED:INTERNAL=1
 

@@ -2,6 +2,7 @@
 #include <cmath>
 #include "cblas.h"
 #include "callfunctions.h"
+#include <mpi.h>
 #include <fstream>
 #include <iomanip>
 using namespace std;
@@ -15,6 +16,35 @@ void F77NAME(dgesv)(const int& n, const int& nrhs, const double * A,
 }
 
 int main(int argc, char* argv[]) {
+
+    /// **Takes command line input for a specified geometry, loading and boundary condition
+    /// in order to solve the heat equation**.
+    /** Receives command line input
+     * in order to solve conductance equation. Using a specified number of quadrilateral elements, Gaussian integration is
+     * used. The stiffness matrix is formed and later split into different sections. Finally, the output is written into a vtk file.*/
+
+    ///@param case_no   case number (1, 2, 3) corresponding to the conditions given in the handout
+    ///@param a         x^2 coefficient in polynomial describing height wrt x
+    ///@param h1        height at beam left edge [m]
+    ///@param h2        height at beam right edge [m]
+    ///@param L         beam length [m]
+    ///@param th        beam thickness [m]
+    ///@param nelem_x   number of elements in x-direction
+    ///@param nelem_y   number of elements in the y-direction
+    ///@param T0        boundary condition temperature at boundary condition edge
+    ///@param q         flux into edge
+    ///@param kx, ky, kxy   thermal conductivity matrix values
+
+
+    int rank, size, retval_rank, retval_size;
+    MPI_Init(&argc, &argv);
+    retval_rank = MPI_Comm_rank(MPI_COMM_WORLD, &rank); // zero-based
+    retval_size = MPI_Comm_size(MPI_COMM_WORLD, &size);
+    if (retval_rank == MPI_ERR_COMM || retval_size == MPI_ERR_COMM) {
+        cout << "Invalid communicator" << endl;
+        return 1; }
+
+    cout << "I am process " << rank + 1 << " of " << size << endl;
 
     // case_no, a, h1, h2, L, th, nelem_x, nelem_y, T0, q, kx, ky, kxy
 
@@ -46,8 +76,6 @@ int main(int argc, char* argv[]) {
     float kxy = atof(argv[13]); // Thermal conductivity [W/mK]
 
 
-
-
     // ----- Integration scheme -----------------
     int gaussorder = 2;
 
@@ -67,6 +95,27 @@ int main(int argc, char* argv[]) {
     int nnode_x = nelem_x + 1;
     int nnode_y = nelem_y + 1;
 
+    double D[4] = {kx, kxy, kxy, ky};                        // conductivity matrix D stored as column major
+
+    // ** CHECKS **
+    // check lengths given > 0m
+    if (h1 <=0 || h2 <= 0 || L <=0 || th <= 0){
+        cout << "Non-positive length entered. Please check dimensions." << endl;
+        return 1;
+    }
+    // check number of elements in x & y > 0
+    if (nelem_x <=0 || nelem_y <= 0){
+        cout << "Non-positive number of elements entered. Please check element numbers." << endl;
+        return 1;
+    }
+
+    // 2x2 matrix is positive if det > 0
+    float detD = D[0] * D[3] - D[1] * D[2];
+    if (detD <= 0){
+        cout << "Matrix is not positive definite. Please check conductivity matrix values." << endl;
+        return 1;
+    }
+
 
     // -----------------------
     // **       CASES       **
@@ -80,7 +129,7 @@ int main(int argc, char* argv[]) {
     // Case 1 & 2: tempnodes and fluxnodes are the same since conditions applied on opposite sides, but not case 3
     switch (case_no) {
 
-        // case 1: T_LEFT and Q_RIGHT
+            /// case 1: T_LEFT & Q_RIGHT
         case 1: {
 
             nFluxNodes = nnode_y;
@@ -88,8 +137,7 @@ int main(int argc, char* argv[]) {
             break;
 
         };
-
-            // case 2: T_BOTTOM and Q_LEFT
+            /// case 2: T_BOTTOM & Q_LEFT
         case 2: {
 
             nFluxNodes = nnode_x;
@@ -98,7 +146,7 @@ int main(int argc, char* argv[]) {
 
         }
 
-            // case 3: T_LEFT and Q_BOTTOM
+            /// case 3: T_LEFT & Q_BOTTOM
         case 3: {
 
             nFluxNodes = nnode_x;
@@ -217,7 +265,6 @@ int main(int argc, char* argv[]) {
     double GP[2] = {-1 / sqrt(3.0), 1 / sqrt(3.0)};         // Gauss points
     int W[2] = {1, 1};                                      // Weights
 
-    double D[4] = {kx, kxy, kxy, ky};                        // conductivity matrix D stored as column major
 
     double K[nnode * nnode];                                 // global stiffness matrix K
     zeros_double(nnode * nnode, &(K[0]));                    // due to iterative addition, K must be zeroed to prevent unpredictable behaviour
@@ -639,11 +686,12 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i < Ef_n; i++){
         f[i + E_n] = f_F[i];
     }
-    
+
+
+    MPI_Finalize();
 
     // call vtkwrite function to write to output file
     vtkwrite(nnode, &(Coord[0]), nelem, nnode_elem, &(ElemNode[0]), &(T[0]));
-
 
 
     return 0;

@@ -23,6 +23,8 @@ cblas.h
 /Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/cblas.h
 callfunctions.h
 /Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/callfunctions.h
+mpi.h
+-
 fstream
 -
 iomanip

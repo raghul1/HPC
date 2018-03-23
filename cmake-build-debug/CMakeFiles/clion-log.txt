@@ -1,5 +1,11 @@
 /Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1"
 -- A library with BLAS API found.
+-- A library with BLAS API found.
+-- Looking for cheev_
+-- Looking for cheev_ - found
+-- A library with LAPACK API found.
+-- Could NOT find MPI_C (missing: MPI_C_LIBRARIES MPI_C_INCLUDE_PATH) 
+-- Could NOT find MPI_CXX (missing: MPI_CXX_LIBRARIES MPI_CXX_INCLUDE_PATH) 
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/cmake-build-debug
