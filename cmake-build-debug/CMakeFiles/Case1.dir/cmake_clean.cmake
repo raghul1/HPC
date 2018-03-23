@@ -1,5 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Case1.dir/main.cpp.o"
+  "CMakeFiles/Case1.dir/vtkwrite.cpp.o"
+  "CMakeFiles/Case1.dir/zeros_int.cpp.o"
+  "CMakeFiles/Case1.dir/zeros_double.cpp.o"
   "Case1.pdb"
   "Case1"
 )

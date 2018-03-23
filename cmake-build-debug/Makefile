@@ -150,6 +150,87 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/Case1.dir/build.make CMakeFiles/Case1.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+vtkwrite.o: vtkwrite.cpp.o
+
+.PHONY : vtkwrite.o
+
+# target to build an object file
+vtkwrite.cpp.o:
+	$(MAKE) -f CMakeFiles/Case1.dir/build.make CMakeFiles/Case1.dir/vtkwrite.cpp.o
+.PHONY : vtkwrite.cpp.o
+
+vtkwrite.i: vtkwrite.cpp.i
+
+.PHONY : vtkwrite.i
+
+# target to preprocess a source file
+vtkwrite.cpp.i:
+	$(MAKE) -f CMakeFiles/Case1.dir/build.make CMakeFiles/Case1.dir/vtkwrite.cpp.i
+.PHONY : vtkwrite.cpp.i
+
+vtkwrite.s: vtkwrite.cpp.s
+
+.PHONY : vtkwrite.s
+
+# target to generate assembly for a file
+vtkwrite.cpp.s:
+	$(MAKE) -f CMakeFiles/Case1.dir/build.make CMakeFiles/Case1.dir/vtkwrite.cpp.s
+.PHONY : vtkwrite.cpp.s
+
+zeros_double.o: zeros_double.cpp.o
+
+.PHONY : zeros_double.o
+
+# target to build an object file
+zeros_double.cpp.o:
+	$(MAKE) -f CMakeFiles/Case1.dir/build.make CMakeFiles/Case1.dir/zeros_double.cpp.o
+.PHONY : zeros_double.cpp.o
+
+zeros_double.i: zeros_double.cpp.i
+
+.PHONY : zeros_double.i
+
+# target to preprocess a source file
+zeros_double.cpp.i:
+	$(MAKE) -f CMakeFiles/Case1.dir/build.make CMakeFiles/Case1.dir/zeros_double.cpp.i
+.PHONY : zeros_double.cpp.i
+
+zeros_double.s: zeros_double.cpp.s
+
+.PHONY : zeros_double.s
+
+# target to generate assembly for a file
+zeros_double.cpp.s:
+	$(MAKE) -f CMakeFiles/Case1.dir/build.make CMakeFiles/Case1.dir/zeros_double.cpp.s
+.PHONY : zeros_double.cpp.s
+
+zeros_int.o: zeros_int.cpp.o
+
+.PHONY : zeros_int.o
+
+# target to build an object file
+zeros_int.cpp.o:
+	$(MAKE) -f CMakeFiles/Case1.dir/build.make CMakeFiles/Case1.dir/zeros_int.cpp.o
+.PHONY : zeros_int.cpp.o
+
+zeros_int.i: zeros_int.cpp.i
+
+.PHONY : zeros_int.i
+
+# target to preprocess a source file
+zeros_int.cpp.i:
+	$(MAKE) -f CMakeFiles/Case1.dir/build.make CMakeFiles/Case1.dir/zeros_int.cpp.i
+.PHONY : zeros_int.cpp.i
+
+zeros_int.s: zeros_int.cpp.s
+
+.PHONY : zeros_int.s
+
+# target to generate assembly for a file
+zeros_int.cpp.s:
+	$(MAKE) -f CMakeFiles/Case1.dir/build.make CMakeFiles/Case1.dir/zeros_int.cpp.s
+.PHONY : zeros_int.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,6 +243,15 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... vtkwrite.o"
+	@echo "... vtkwrite.i"
+	@echo "... vtkwrite.s"
+	@echo "... zeros_double.o"
+	@echo "... zeros_double.i"
+	@echo "... zeros_double.s"
+	@echo "... zeros_int.o"
+	@echo "... zeros_int.i"
+	@echo "... zeros_int.s"
 .PHONY : help
 
 

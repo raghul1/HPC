@@ -82,7 +82,19 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/callfunctions.h">
+			<Option target="Case1"/>
+		</Unit>
 		<Unit filename="/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/main.cpp">
+			<Option target="Case1"/>
+		</Unit>
+		<Unit filename="/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/vtkwrite.cpp">
+			<Option target="Case1"/>
+		</Unit>
+		<Unit filename="/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/zeros_double.cpp">
+			<Option target="Case1"/>
+		</Unit>
+		<Unit filename="/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/zeros_int.cpp">
 			<Option target="Case1"/>
 		</Unit>
 		<Unit filename="/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/CMakeLists.txt">

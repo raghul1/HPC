@@ -81,17 +81,95 @@ CMakeFiles/Case1.dir/main.cpp.o.provides: CMakeFiles/Case1.dir/main.cpp.o.requir
 CMakeFiles/Case1.dir/main.cpp.o.provides.build: CMakeFiles/Case1.dir/main.cpp.o
 
 
+CMakeFiles/Case1.dir/vtkwrite.cpp.o: CMakeFiles/Case1.dir/flags.make
+CMakeFiles/Case1.dir/vtkwrite.cpp.o: ../vtkwrite.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Case1.dir/vtkwrite.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Case1.dir/vtkwrite.cpp.o -c "/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/vtkwrite.cpp"
+
+CMakeFiles/Case1.dir/vtkwrite.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Case1.dir/vtkwrite.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/vtkwrite.cpp" > CMakeFiles/Case1.dir/vtkwrite.cpp.i
+
+CMakeFiles/Case1.dir/vtkwrite.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Case1.dir/vtkwrite.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/vtkwrite.cpp" -o CMakeFiles/Case1.dir/vtkwrite.cpp.s
+
+CMakeFiles/Case1.dir/vtkwrite.cpp.o.requires:
+
+.PHONY : CMakeFiles/Case1.dir/vtkwrite.cpp.o.requires
+
+CMakeFiles/Case1.dir/vtkwrite.cpp.o.provides: CMakeFiles/Case1.dir/vtkwrite.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Case1.dir/build.make CMakeFiles/Case1.dir/vtkwrite.cpp.o.provides.build
+.PHONY : CMakeFiles/Case1.dir/vtkwrite.cpp.o.provides
+
+CMakeFiles/Case1.dir/vtkwrite.cpp.o.provides.build: CMakeFiles/Case1.dir/vtkwrite.cpp.o
+
+
+CMakeFiles/Case1.dir/zeros_int.cpp.o: CMakeFiles/Case1.dir/flags.make
+CMakeFiles/Case1.dir/zeros_int.cpp.o: ../zeros_int.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Case1.dir/zeros_int.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Case1.dir/zeros_int.cpp.o -c "/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/zeros_int.cpp"
+
+CMakeFiles/Case1.dir/zeros_int.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Case1.dir/zeros_int.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/zeros_int.cpp" > CMakeFiles/Case1.dir/zeros_int.cpp.i
+
+CMakeFiles/Case1.dir/zeros_int.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Case1.dir/zeros_int.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/zeros_int.cpp" -o CMakeFiles/Case1.dir/zeros_int.cpp.s
+
+CMakeFiles/Case1.dir/zeros_int.cpp.o.requires:
+
+.PHONY : CMakeFiles/Case1.dir/zeros_int.cpp.o.requires
+
+CMakeFiles/Case1.dir/zeros_int.cpp.o.provides: CMakeFiles/Case1.dir/zeros_int.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Case1.dir/build.make CMakeFiles/Case1.dir/zeros_int.cpp.o.provides.build
+.PHONY : CMakeFiles/Case1.dir/zeros_int.cpp.o.provides
+
+CMakeFiles/Case1.dir/zeros_int.cpp.o.provides.build: CMakeFiles/Case1.dir/zeros_int.cpp.o
+
+
+CMakeFiles/Case1.dir/zeros_double.cpp.o: CMakeFiles/Case1.dir/flags.make
+CMakeFiles/Case1.dir/zeros_double.cpp.o: ../zeros_double.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Case1.dir/zeros_double.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Case1.dir/zeros_double.cpp.o -c "/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/zeros_double.cpp"
+
+CMakeFiles/Case1.dir/zeros_double.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Case1.dir/zeros_double.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/zeros_double.cpp" > CMakeFiles/Case1.dir/zeros_double.cpp.i
+
+CMakeFiles/Case1.dir/zeros_double.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Case1.dir/zeros_double.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/zeros_double.cpp" -o CMakeFiles/Case1.dir/zeros_double.cpp.s
+
+CMakeFiles/Case1.dir/zeros_double.cpp.o.requires:
+
+.PHONY : CMakeFiles/Case1.dir/zeros_double.cpp.o.requires
+
+CMakeFiles/Case1.dir/zeros_double.cpp.o.provides: CMakeFiles/Case1.dir/zeros_double.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Case1.dir/build.make CMakeFiles/Case1.dir/zeros_double.cpp.o.provides.build
+.PHONY : CMakeFiles/Case1.dir/zeros_double.cpp.o.provides
+
+CMakeFiles/Case1.dir/zeros_double.cpp.o.provides.build: CMakeFiles/Case1.dir/zeros_double.cpp.o
+
+
 # Object files for target Case1
 Case1_OBJECTS = \
-"CMakeFiles/Case1.dir/main.cpp.o"
+"CMakeFiles/Case1.dir/main.cpp.o" \
+"CMakeFiles/Case1.dir/vtkwrite.cpp.o" \
+"CMakeFiles/Case1.dir/zeros_int.cpp.o" \
+"CMakeFiles/Case1.dir/zeros_double.cpp.o"
 
 # External object files for target Case1
 Case1_EXTERNAL_OBJECTS =
 
 Case1: CMakeFiles/Case1.dir/main.cpp.o
+Case1: CMakeFiles/Case1.dir/vtkwrite.cpp.o
+Case1: CMakeFiles/Case1.dir/zeros_int.cpp.o
+Case1: CMakeFiles/Case1.dir/zeros_double.cpp.o
 Case1: CMakeFiles/Case1.dir/build.make
 Case1: CMakeFiles/Case1.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Case1"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/Users/Raghul/Documents/Imperial/Aeronautics - 3rd Year/High Performance Computing/hpc_coursework/Case1/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable Case1"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Case1.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -100,6 +178,9 @@ CMakeFiles/Case1.dir/build: Case1
 .PHONY : CMakeFiles/Case1.dir/build
 
 CMakeFiles/Case1.dir/requires: CMakeFiles/Case1.dir/main.cpp.o.requires
+CMakeFiles/Case1.dir/requires: CMakeFiles/Case1.dir/vtkwrite.cpp.o.requires
+CMakeFiles/Case1.dir/requires: CMakeFiles/Case1.dir/zeros_int.cpp.o.requires
+CMakeFiles/Case1.dir/requires: CMakeFiles/Case1.dir/zeros_double.cpp.o.requires
 
 .PHONY : CMakeFiles/Case1.dir/requires
 
